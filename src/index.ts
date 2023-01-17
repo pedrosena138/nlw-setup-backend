@@ -1,8 +1,12 @@
-import Fastfify from 'fastify';
+import Fastfify from 'fastify'
 import cors from '@fastify/cors'
 import { PrismaClient } from '@prisma/client'
+import { loggerFormat } from './config/logger'
 
-const app = Fastfify()
+const app = Fastfify({
+  logger: loggerFormat.development
+})
+
 const prisma = new PrismaClient()
 
 app.register(cors)
@@ -17,9 +21,5 @@ app.get('/habits', async () => {
 })
 
 app.listen({
-  port: 3333,
-}).then(() => {
-  console.log('Server running on port 3333')
-}).catch(err => {
-  console.error(err)
+  port: 3333
 })
