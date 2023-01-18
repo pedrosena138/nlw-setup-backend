@@ -1,4 +1,4 @@
-export const loggerFormat = {
+export const logger = {
   development: {
     transport: {
       target: 'pino-pretty',

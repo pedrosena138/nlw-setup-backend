@@ -18,6 +18,7 @@ module.exports = {
   root: true,
   rules: {
     '@typescript-eslint/no-floating-promises': 'off',
-    '@typescript-eslint/space-before-function-paren': 'off'
+    '@typescript-eslint/space-before-function-paren': 'off',
+    'no-unexpected-multiline': 'off'
   }
 }

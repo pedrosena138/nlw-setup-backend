@@ -1,25 +1,28 @@
 import Fastfify from 'fastify'
 import cors from '@fastify/cors'
-import { PrismaClient } from '@prisma/client'
-import { loggerFormat } from './config/logger'
 
-const app = Fastfify({
-  logger: loggerFormat.development
-})
+import { logger } from './config/logger'
+import { router } from './infra/http/router'
+import { swaggerConfig } from './config/swagger'
 
-const prisma = new PrismaClient()
+const app = async (): Promise<void> => {
+  const fastify = Fastfify({
+    logger: process.env.NODE_ENV !== 'production' ? logger.development : logger.production
+  })
 
-app.register(cors)
+  await fastify.register(cors)
 
-app.get('/', () => {
-  return { message: 'Hello World' }
-})
+  await swaggerConfig(fastify)
 
-app.get('/habits', async () => {
-  const habits = await prisma.habit.findMany()
-  return habits
-})
+  router(fastify)
 
-app.listen({
-  port: 3333
-})
+  await fastify.ready()
+
+  fastify.swagger()
+
+  fastify.listen({
+    port: 3333
+  })
+}
+
+app()
