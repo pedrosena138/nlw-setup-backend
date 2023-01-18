@@ -104,5 +104,6 @@ dist
 .tern-port
 
 # Prisma
-.db
-.sqlite
+*.db
+*.sqlite
+*.db-journal
