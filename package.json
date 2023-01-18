@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsup src/**/*.ts --ignore-watch src/**/*.spec.ts",
     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts",
     "lint:fix": "eslint \"{src,libs,test}/**/*.ts\" --fix .",
@@ -38,6 +39,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "pino-pretty": "^9.1.1",
     "prisma": "^4.9.0",
+    "tsup": "^6.5.0",
     "tsx": "^3.12.2",
     "typescript": "^4.9.4"
   }
