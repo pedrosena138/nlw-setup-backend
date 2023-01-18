@@ -2,7 +2,7 @@ import Fastfify from 'fastify'
 import cors from '@fastify/cors'
 
 import { logger } from './config/logger'
-import { router } from './infra/http/router'
+import { router } from './infra/http'
 import { swaggerConfig } from './config/swagger'
 
 const app = async (): Promise<void> => {
@@ -11,15 +11,11 @@ const app = async (): Promise<void> => {
   })
 
   await fastify.register(cors)
-
   await swaggerConfig(fastify)
-
-  router(fastify)
-
+  await fastify.register(router)
   await fastify.ready()
 
   fastify.swagger()
-
   fastify.listen({
     port: 3333
   })
